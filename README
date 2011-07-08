@@ -1,0 +1,1 @@
+My idea of how to do website templating with PHP.  This isn't one of those ill-advised template languages parsed by PHP, it's a way of using PHP to intelligently, maintainably build websites without duplicating code.
