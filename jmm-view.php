@@ -151,6 +151,65 @@ class JMM_View {
 
 
   /**
+   * Unset a content item.
+   *
+   * @param string $content_id Key identifying the content item.
+   *
+   * @return void
+   */
+
+  public function unset_content_item( $content_id ) {
+
+    unset( $this->content[ $content_id ] );
+
+
+    return;
+
+  }
+  // unset_content_item
+
+
+  /**
+   * Unset content items
+   *
+   * @param array $content_items Keys identifying content items.
+   *
+   * @return void
+   */
+
+  public function unset_content_items( $content_items ) {
+
+    foreach ( $content_items as $content_id ) {
+
+      $this->unset_content_item( $content_id );
+
+    }
+    // foreach
+
+
+    return;
+
+  }
+  // unset_content_items
+
+
+  /**
+   * Tests whether the item exists, for if you need to distinguish between undef and null.
+   *
+   * @param string $content_id Key identifying the content item.
+   *
+   * @return bool True if the content item exists, even if null.
+   */
+
+  public function has_content_item( $content_id ) {
+
+    return array_key_exists( $content_id, $this->content );
+
+  }
+  // has_content_item
+
+
+  /**
    * Begin capturing a content item.
    *
    * @param string $content_id Key identifying the content item.
@@ -319,6 +378,65 @@ class JMM_View {
 
   }
   // set_config_items
+
+
+  /**
+   * Unset a config item.
+   *
+   * @param string $config_id Key identifying the config item.
+   *
+   * @return void
+   */
+
+  public function unset_config_item( $config_id ) {
+
+    unset( $this->config[ $config_id ] );
+
+
+    return;
+
+  }
+  // unset_config_item
+
+
+  /**
+   * Unset config items
+   *
+   * @param array $config_items Keys identifying config items.
+   *
+   * @return void
+   */
+
+  public function unset_config_items( $config_items ) {
+
+    foreach ( $config_items as $config_id ) {
+
+      $this->unset_config_item( $config_id );
+
+    }
+    // foreach
+
+
+    return;
+
+  }
+  // unset_config_items
+
+
+  /**
+   * Tests whether the item exists, for if you need to distinguish between undef and null.
+   *
+   * @param string $config_id Key identifying the config item.
+   *
+   * @return bool True if the config item exists, even if null.
+   */
+
+  public function has_config_item( $config_id ) {
+
+    return array_key_exists( $config_id, $this->config );
+
+  }
+  // has_config_item
 
 
   /**
