@@ -336,20 +336,20 @@ class JMM_View {
     $config = $this->get_config_items();
 
 
-    if ( $config[ 'this-alias' ] ) {
+    if ( $config[ '_this_alias' ] ) {
 
-      ${$config[ 'this-alias' ]} = $this;
+      ${$config[ '_this_alias' ]} = $this;
 
     }
     // if
 
 
-    unset( $data[ $config[ 'this-alias' ] ], $data[ 'view_script' ] );
+    unset( $data[ $config[ '_this_alias' ] ], $data[ 'view_script' ] );
 
     extract( $data );
 
 
-    $view_script = ( $view_script[0] == "/" ) ? $view_script : "{$config[ 'views-path' ]}/{$view_script}";
+    $view_script = ( $view_script[0] == "/" ) ? $view_script : "{$config[ '_views_path' ]}/{$view_script}";
 
 
     include $view_script;
