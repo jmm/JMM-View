@@ -65,6 +65,25 @@ class JMM_View {
   // get_content_item
 
 
+
+  /**
+   * Get a content item, or a fallback value.  Possibly appropriate as an abbreviated alternative to get_content_item().
+   *
+   * @param string $content_id Key identifying the content item.
+   *
+   * @param mixed $default Fallback value if the content item does not satisfy criteria of get_defaulted_content().
+   *
+   * @return mixed Content item value, $default, or other.
+   */
+
+  public function content( $content_id, $default = NULL ) {
+
+    return $this->get_defaulted_content( $content_id, $default );
+
+  }
+  // content
+
+
   /**
    * Get content items.
    *
@@ -437,6 +456,27 @@ class JMM_View {
 
   }
   // has_config_item
+
+
+  /**
+   * Determine whether to use default content or not.  Uses $default if content item value is NULL.  Subclass and override for custom logic.
+   *
+   * @param string $content_id Key identifying the content item.
+   *
+   * @param mixed $default Default content.
+   *
+   * @return mixed Content item value or $default.
+   */
+
+  protected function get_defaulted_content( $content_id, $default ) {
+
+    $content = $this->get_content_item( $content_id );
+
+
+    return ( is_null( $content ) ? $default : $content );
+
+  }
+  // get_defaulted_content
 
 
   /**
