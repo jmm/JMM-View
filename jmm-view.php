@@ -502,26 +502,35 @@ class JMM_View {
 
   public function echo_render( $view_script, $data = array() ) {
 
-    $config = $this->get_config_items();
+    $this->config[ '_view_script' ] = $view_script;
 
 
-    if ( $config[ '_this_alias' ] ) {
+    if ( $this->config[ '_this_alias' ] ) {
 
-      ${$config[ '_this_alias' ]} = $this;
+      $data[ $this->config[ '_this_alias' ] ] = $this;
 
     }
     // if
 
 
-    unset( $data[ $config[ '_this_alias' ] ], $data[ 'view_script' ] );
-
     extract( $data );
 
 
-    $view_script = ( $view_script[0] == "/" ) ? $view_script : "{$config[ '_views_path' ]}/{$view_script}";
+    $this->config[ '_view_script' ] = (
+
+      ( $this->config[ '_view_script' ][0] == "/" ) ?
+
+      $this->config[ '_view_script' ] :
+
+      "{$this->config[ '_views_path' ]}/{$this->config[ '_view_script' ]}"
+
+    );
 
 
-    include $view_script;
+    include $this->config[ '_view_script' ];
+
+
+    unset( $this->config[ '_view_script' ] );
 
 
     return;
