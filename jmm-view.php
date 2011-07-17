@@ -231,12 +231,12 @@ class JMM_View {
   /**
    * Begin capturing a content item.
    *
-   * @param string $content_id Key identifying the content item.
+   * @param string $content_id Optional key identifying the content item.  Must be specified at least here or in end_set_content_item().  If also specified there, they must match.
    *
    * @return void
    */
 
-  public function start_set_content_item( $content_id ) {
+  public function start_set_content_item( $content_id = NULL ) {
 
     ob_start();
 
@@ -252,45 +252,56 @@ class JMM_View {
   /**
    * Finish capturing a content item.
    *
-   * @param string $content_id Optional argument to document which content item is being captured.  If specified, must match the key passed to the most recent call to start_set_content_item().
+   * @param string $content_id Optional key identifying the content item.  If also specified there, they must match.
    *
    * @return void
    */
 
   public function end_set_content_item( $content_id = NULL ) {
 
-    $buffer_content_id = array_pop( $this->buffers );
+    $buffer_ids = array( 'start' => array_pop( $this->buffers ), 'end' => $content_id );
 
-    if ( is_null( $content_id ) || $buffer_content_id == $content_id ) {
+    $buffer_id = NULL;
 
-      $this->set_content_item( $buffer_content_id, ob_get_clean() );
+
+    foreach ( $buffer_ids as $current_id ) {
+
+      if ( ! strlen( $current_id ) ) {
+
+        continue;
+
+      }
+      // if
+
+
+      elseif ( ! strlen( $buffer_id ) || $buffer_id === $current_id ) {
+
+        $buffer_id = $current_id;
+
+      }
+      // elseif
+
+
+      else {
+
+        $buffer_id = NULL;
+
+      }
+      // else
+
+    }
+    // foreach
+
+
+    $content = ob_get_clean();
+
+
+    if ( strlen( $buffer_id ) ) {
+
+      $this->set_content_item( $buffer_id, $content );
 
     }
     // if
-
-
-    else {
-
-      ob_end_clean();
-
-      for ( $i = ( count( $this->buffers ) - 1 ) ; $i >= 0 ; --$i ) {
-
-        $buffer_content_id = $this->buffers[ $i ];
-
-        unset( $this->buffers[ $i ] );
-
-        if ( $buffer_content_id == $content_id ) {
-
-          break;
-
-        }
-        // if
-
-      }
-      // for
-
-    }
-    // else
 
 
     return;
