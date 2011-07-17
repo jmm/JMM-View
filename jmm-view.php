@@ -266,28 +266,20 @@ class JMM_View {
 
     foreach ( $buffer_ids as $current_id ) {
 
-      if ( ! strlen( $current_id ) ) {
+      if ( $buffer_id == $current_id || ! strlen( $buffer_id ) ) {
 
-        continue;
+        $buffer_id = $current_id;
 
       }
       // if
 
 
-      elseif ( ! strlen( $buffer_id ) || $buffer_id === $current_id ) {
-
-        $buffer_id = $current_id;
-
-      }
-      // elseif
-
-
-      else {
+      elseif ( strlen( $current_id ) ) {
 
         $buffer_id = NULL;
 
       }
-      // else
+      // elseif
 
     }
     // foreach
