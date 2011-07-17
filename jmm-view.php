@@ -492,9 +492,22 @@ class JMM_View {
    * @return void
    */
 
-  public function echo_render( $view_script, $data = array() ) {
+  public function echo_render( $view_scripts, $data = array() ) {
 
-    $this->config[ '_view_script' ] = $view_script;
+    if ( ! ( $view_scripts = $this->find_view( $view_scripts ) ) ) {
+
+      return;
+
+    }
+    // if
+
+
+    $this->config[ '_temp' ] = array();
+
+
+    $this->config[ '_temp' ][ 'view_script' ] = $view_scripts;
+
+    unset( $view_scripts );
 
 
     if ( $this->config[ '_this_alias' ] ) {
@@ -505,24 +518,27 @@ class JMM_View {
     // if
 
 
+    $this->config[ '_temp' ][ 'unset_data' ] = ! array_key_exists( 'data', $data );
+
+
+    unset( $data[ 'this' ] );
+
+
     extract( $data );
 
 
-    $this->config[ '_view_script' ] = (
+    if ( $this->config[ '_temp' ][ 'unset_data' ] ) {
 
-      ( $this->config[ '_view_script' ][0] == "/" ) ?
+      unset( $data );
 
-      $this->config[ '_view_script' ] :
-
-      "{$this->config[ '_views_path' ]}/{$this->config[ '_view_script' ]}"
-
-    );
+    }
+    // if
 
 
-    include $this->config[ '_view_script' ];
+    include $this->config[ '_temp' ][ 'view_script' ];
 
 
-    unset( $this->config[ '_view_script' ] );
+    unset( $this->config[ '_temp' ] );
 
 
     return;
@@ -541,17 +557,69 @@ class JMM_View {
    * @return string View output.
    */
 
-  public function get_render( $view_script, $data = array() ) {
+  public function get_render( $view_scripts, $data = array() ) {
 
     ob_start();
 
-    $this->echo_render( $view_script, $data );
+    $this->echo_render( $view_scripts, $data );
 
 
     return ob_get_clean();
 
   }
   // get_render
+
+
+  /**
+   * Determine which of possibly several potential views to use.  Use the first one that is a readable file.  Evaluate relative paths in relation to $this->config[ '_views_path' ].
+   *
+   * @param string|array $view_scripts One or more paths to possibly extant view scripts.
+   *
+   * @param $start_path Not currently implemented.
+   *
+   * @param $end_path Not currently implemented.
+   *
+   * @return string|NULL Pathname to the selected view script, or NULL if none viable.
+   */
+
+  public function find_view( $view_scripts, $start_path = NULL, $end_path = NULL ) {
+
+    $view_scripts = (array) $view_scripts;
+
+    $config = $this->config;
+
+
+    foreach ( $view_scripts as $view_script ) {
+
+      $view_script = (
+
+        ( $view_script[0] == "/" ) ?
+
+        $view_script :
+
+        "{$config[ '_views_path' ]}/{$view_script}"
+
+      );
+
+
+      if ( count( $view_scripts ) == 1 || is_readable( $view_script ) ) {
+
+        break;
+
+      }
+      // if
+
+
+      unset( $view_script );
+
+    }
+    // foreach
+
+
+    return $view_script;
+
+  }
+  // find_view
 
 }
 // JMM_View
