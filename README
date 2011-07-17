@@ -1,1 +1,13 @@
-My idea of how to do website templating with PHP.  This isn't one of those ill-advised template languages parsed by PHP, it's a way of using PHP to intelligently, maintainably build websites without duplicating code.
+My idea of how to do website templating with PHP.  This isn't one of those ill-advised template languages parsed by PHP -- the templates are straight PHP.  This is not designed to dumb down templates to make them safe for editing by people who can't be trusted with PHP code (security or competence wise).  This is a tool for professional developers to intelligently, maintainably build websites without duplicating code.
+
+I've added some polish and enhancements, but this is basically what I've been using for years.
+
+-- Jesse McCarthy, 2011-07-17.
+
+
+TO DO
+
+* Load each template using a separate instance of the class?  Haven't thoguht of a good reason to do it yet, but I'm thinking about it.
+
+* Provide more support for template hierarchies?
+
