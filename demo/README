@@ -1,0 +1,3 @@
+An example of basic functionality and usage.
+
+If you don't put the demo directory in the document root of a website, then change the base_url value in demo/init.php.  If you don't put jmm-view.php in the demo directory, then update the path to that file in demo/init.php.

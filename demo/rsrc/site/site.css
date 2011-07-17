@@ -1,0 +1,101 @@
+
+
+section, article, aside, hgroup, header, footer, nav, figure, figcaption {
+
+  display: block;
+
+}
+
+
+body {
+
+  background-color: #FFFFFF;
+
+  color: #000000;
+
+  font-size: 1em;
+
+  font-family: "Georgia", serif;
+
+  margin: 0;
+
+  padding: 1em 0;
+
+}
+
+
+#SITE-primary-layout {
+
+  width: 800px;
+
+  margin: 0 auto;
+
+  border: 1px #444444;
+
+  border-style: solid none;
+
+}
+
+
+#SITE-primary-nav {
+
+  margin: 0 0 2em;
+
+}
+
+
+#SITE-primary-nav .SITE-nav-items {
+
+  list-style-type: none;
+
+  margin: 0;
+
+  padding: 0;
+
+}
+
+
+#SITE-primary-nav .SITE-nav-items .SITE-nav-item {
+
+  display: inline;
+
+  margin: 0 0.5em 0 0;
+
+  padding: 0.5em;
+
+  background-color: #EEEEEE;
+
+}
+
+
+#SITE-primary-nav .SITE-nav-items .SITE-nav-item.SITE-current {
+
+  background-color: #BED5ED;
+
+}
+
+
+#SITE-primary-nav .SITE-nav-items .SITE-nav-item a[href] {
+
+  color: inherit;
+
+  text-decoration: none;
+
+}
+
+
+#SITE-primary-content ul {
+
+  list-style-type: square;
+
+}
+
+
+#SITE-footer {
+
+  margin: 2em auto;
+
+  text-align: center;
+
+}
+
